@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Login Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e, #ffa8a8);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background pattern */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M15 30a15 15 0 1 1 30 0 15 15 0 0 1-30 0zm15-12a12 12 0 1 0 0 24 12 12 0 0 0 0-24z'/%3E%3Crect x='5' y='5' width='8' height='8' rx='2'/%3E%3Crect x='47' y='5' width='8' height='8' rx='2'/%3E%3Crect x='5' y='47' width='8' height='8' rx='2'/%3E%3Crect x='47' y='47' width='8' height='8' rx='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        .login-form-section {
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .illustration-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 18px;
+        }
+
+        .remember-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .checkbox {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .remember-text {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .divider {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #6c757d;
+            position: relative;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-btn.facebook {
+            color: #4267B2;
+        }
+
+        .social-btn.google {
+            color: #db4437;
+        }
+
+        .social-btn.twitter {
+            color: #1DA1F2;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Mobile phone illustration */
+        .phone-mockup {
+            width: 200px;
+            height: 400px;
+            background: #4a90e2;
+            border-radius: 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: rotate(-5deg);
+            z-index: 2;
+        }
+
+        .phone-screen {
+            position: absolute;
+            top: 40px;
+            left: 20px;
+            right: 20px;
+            bottom: 80px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+        }
+
+        .phone-card {
+            width: 100px;
+            height: 60px;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .phone-card::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 30px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 2px;
+        }
+
+        .phone-home-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border-radius: 50%;
+        }
+
+        /* Character illustration */
+        .character {
+            position: absolute;
+            right: -50px;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .character-body {
+            width: 120px;
+            height: 160px;
+            background: linear-gradient(135deg, #6a5acd, #9370db);
+            border-radius: 60px 60px 20px 20px;
+            position: relative;
+        }
+
+        .character-head {
+            width: 80px;
+            height: 80px;
+            background: #fdbcb4;
+            border-radius: 50%;
+            position: absolute;
+            top: -40px;
+            left: 20px;
+        }
+
+        .character-hair {
+            width: 60px;
+            height: 40px;
+            background: #2c3e50;
+            border-radius: 30px 30px 0 0;
+            position: absolute;
+            top: -20px;
+            left: 10px;
+        }
+
+        .character-arm {
+            width: 30px;
+            height: 60px;
+            background: #fdbcb4;
+            border-radius: 15px;
+            position: absolute;
+            top: 20px;
+            right: -15px;
+        }
+
+        .character-phone {
+            width: 15px;
+            height: 25px;
+            background: #333;
+            border-radius: 3px;
+            position: absolute;
+            top: 45px;
+            right: -25px;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.6;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 10%;
+            width: 30px;
+            height: 30px;
+            background: #ff9999;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            top: 70%;
+            left: 20%;
+            width: 20px;
+            height: 20px;
+            background: #99ccff;
+            transform: rotate(45deg);
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            top: 30%;
+            right: 15%;
+            width: 25px;
+            height: 25px;
+            background: #ffcc99;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-card {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+            }
+
+            .illustration-section {
+                order: -1;
+                min-height: 200px;
+            }
+
+            .login-form-section {
+                padding: 40px 30px;
+            }
+
+            .form-title {
+                font-size: 2em;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            .phone-mockup {
+                width: 120px;
+                height: 240px;
+                transform: rotate(0deg);
+            }
+
+            .phone-screen {
+                top: 20px;
+                left: 10px;
+                right: 10px;
+                bottom: 40px;
+                padding: 10px;
+            }
+
+            .success-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .phone-card {
+                width: 60px;
+                height: 40px;
+            }
+
+            .character {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-form-section {
+                padding: 30px 20px;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+
+            .input-field {
+                padding: 12px 15px 12px 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="login-form-section">
+                <h1 class="form-title">Sign In</h1>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <div class="input-icon">👤</div>
+                        <input type="text" class="input-field" placeholder="Enter Username" id="username">
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-icon">🔒</div>
+                        <input type="password" class="input-field" placeholder="Enter Password" id="password">
+                    </div>
+                    
+                    <div class="remember-section">
+                        <input type="checkbox" class="checkbox" id="remember">
+                        <label for="remember" class="remember-text">Remember Me</label>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+                
+                <div class="divider">Or, Login with</div>
+                
+                <div class="social-login">
+                    <button class="social-btn facebook">📘</button>
+                    <button class="social-btn google">🌐</button>
+                    <button class="social-btn twitter">🐦</button>
+                </div>
+                
+                <div class="signup-link">
+                    Don't have an account? <a href="#" id="createAccount">Create One</a>
+                </div>
+            </div>
+            
+            <div class="illustration-section">
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+                
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="success-icon">✓</div>
+                        <div class="phone-card"></div>
+                    </div>
+                    <div class="phone-home-btn"></div>
+                </div>
+                
+                <div class="character">
+                    <div class="character-body">
+                        <div class="character-head">
+                            <div class="character-hair"></div>
+                        </div>
+                        <div class="character-arm">
+                            <div class="character-phone"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form interaction
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.querySelector('.login-btn');
+
+        // Add input validation
+        function validateForm() {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            if (username && password) {
+                loginBtn.style.opacity = '1';
+                loginBtn.disabled = false;
+            } else {
+                loginBtn.style.opacity = '0.7';
+                loginBtn.disabled = true;
+            }
+        }
+
+        usernameInput.addEventListener('input', validateForm);
+        passwordInput.addEventListener('input', validateForm);
+
+        // Initial validation
+        validateForm();
+
+        // Form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            loginBtn.innerHTML = 'Logging in...';
+            loginBtn.style.background = 'linear-gradient(135deg, #95a5a6, #7f8c8d)';
+            
+            // Simulate login process
+            setTimeout(() => {
+                loginBtn.innerHTML = '✓ Success!';
+                loginBtn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                
+                setTimeout(() => {
+                    loginBtn.innerHTML = 'Login';
+                    loginBtn.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8e8e)';
+                    alert('Login successful! (This is a demo)');
+                }, 2000);
+            }, 1500);
+        });
+
+        // Social login buttons
+        const socialButtons = document.querySelectorAll('.social-btn');
+        socialButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const platform = this.classList[1];
+                alert(`Login with ${platform} clicked! (Demo only)`);
+            });
+        });
+
+        // Create account link
+        document.getElementById('createAccount').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Create account feature would be implemented here!');
+        });
+
+        // Add interactive animations
+        const inputFields = document.querySelectorAll('.input-field');
+        inputFields.forEach(field => {
+            field.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            field.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Parallax effect for floating shapes
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', function(e) {
+                const shapes = document.querySelectorAll('.shape');
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+
+                shapes.forEach((shape, index) => {
+                    const speed = (index + 1) * 2;
+                    const x = mouseX * speed;
+                    const y = mouseY * speed;
+                    
+                    shape.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+        }
+
+        // Add ripple effect to login button
+        loginBtn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            .login-btn {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

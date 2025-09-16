@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #FF6B7A;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Pattern */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 5h10v10H5V5zm20 0h10v10H25V5zm-20 20h10v10H5V25zm20 0h10v10H25V25z' fill='%23FF5A6B' fill-opacity='0.3'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='8' fill='none' stroke='%23FF5A6B' stroke-width='2' opacity='0.2'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10l5 5-5 5-5-5zm60 0l5 5-5 5-5-5zm-60 60l5 5-5 5-5-5zm60 0l5 5-5 5-5-5z' fill='%23FF5A6B' opacity='0.2'/%3E%3C/svg%3E");
+            background-size: 40px 40px, 60px 60px, 80px 80px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .illustration {
+            width: 280px;
+            height: 280px;
+            position: relative;
+        }
+
+        /* Person illustration */
+        .person {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 200px;
+        }
+
+        .person-head {
+            width: 50px;
+            height: 50px;
+            background: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 35px;
+            z-index: 5;
+        }
+
+        .person-hair {
+            width: 55px;
+            height: 35px;
+            background: #4A148C;
+            border-radius: 30px 30px 20px 20px;
+            position: absolute;
+            top: 18px;
+            left: 32px;
+            z-index: 6;
+        }
+
+        .person-beard {
+            width: 30px;
+            height: 25px;
+            background: #4A148C;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            top: 55px;
+            left: 45px;
+            z-index: 5;
+        }
+
+        .person-body {
+            width: 80px;
+            height: 100px;
+            background: white;
+            border-radius: 40px 40px 20px 20px;
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            z-index: 3;
+        }
+
+        .person-arm {
+            width: 25px;
+            height: 70px;
+            background: #8B4513;
+            border-radius: 15px;
+            position: absolute;
+            top: 85px;
+            z-index: 4;
+        }
+
+        .person-arm.left {
+            left: 10px;
+            transform: rotate(-20deg);
+        }
+
+        .person-arm.right {
+            right: 10px;
+            transform: rotate(20deg);
+        }
+
+        .person-legs {
+            width: 60px;
+            height: 80px;
+            background: #303F9F;
+            border-radius: 30px;
+            position: absolute;
+            bottom: 0;
+            left: 30px;
+            z-index: 2;
+        }
+
+        .person-feet {
+            width: 90px;
+            height: 20px;
+            background: #2196F3;
+            border-radius: 30px;
+            position: absolute;
+            bottom: -5px;
+            left: 15px;
+            z-index: 1;
+        }
+
+        /* Documents */
+        .document {
+            position: absolute;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .doc1 {
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            top: 30px;
+            right: 40px;
+            transform: rotate(15deg);
+            z-index: 3;
+        }
+
+        .doc1::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            right: 10px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 2px;
+            box-shadow: 0 8px 0 rgba(255, 255, 255, 0.6), 0 16px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .doc2 {
+            width: 70px;
+            height: 90px;
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            top: 50px;
+            right: 10px;
+            transform: rotate(-10deg);
+            z-index: 2;
+        }
+
+        .doc2::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 8px;
+            right: 8px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 2px;
+            box-shadow: 0 6px 0 rgba(255, 255, 255, 0.6), 0 12px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .doc3 {
+            width: 90px;
+            height: 70px;
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            top: 80px;
+            left: 20px;
+            transform: rotate(-5deg);
+            z-index: 4;
+        }
+
+        .doc3::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 12px;
+            right: 12px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 2px;
+            box-shadow: 0 8px 0 rgba(255, 255, 255, 0.6), 0 16px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .right-section {
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+
+        .form-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 18px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            gap: 12px;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #e1e5e9;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox.checked {
+            background: #667eea;
+            border-color: #667eea;
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .checkbox-label {
+            color: #495057;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #FF6B7A 0%, #FF5A6B 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 122, 0.4);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .signin-link {
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .signin-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signin-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 14px;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin: 10px;
+            }
+
+            .left-section {
+                padding: 40px 20px;
+            }
+
+            .illustration {
+                width: 200px;
+                height: 200px;
+            }
+
+            .person {
+                width: 100px;
+                height: 160px;
+            }
+
+            .person-head {
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                left: 30px;
+            }
+
+            .person-hair {
+                width: 45px;
+                height: 28px;
+                top: 13px;
+                left: 27px;
+            }
+
+            .person-beard {
+                width: 25px;
+                height: 20px;
+                top: 45px;
+                left: 37px;
+            }
+
+            .person-body {
+                width: 65px;
+                height: 80px;
+                top: 55px;
+                left: 17px;
+            }
+
+            .person-arm {
+                width: 20px;
+                height: 55px;
+                top: 70px;
+            }
+
+            .person-legs {
+                width: 50px;
+                height: 65px;
+                left: 25px;
+            }
+
+            .person-feet {
+                width: 75px;
+                height: 15px;
+                left: 12px;
+            }
+
+            .doc1, .doc2, .doc3 {
+                width: 60px;
+                height: 70px;
+            }
+
+            .right-section {
+                padding: 40px 30px;
+            }
+
+            .form-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .right-section {
+                padding: 30px 20px;
+            }
+
+            .form-title {
+                font-size: 1.8rem;
+            }
+
+            .form-control {
+                padding: 14px 14px 14px 45px;
+                font-size: 15px;
+            }
+
+            .form-icon {
+                left: 14px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="illustration">
+                <div class="person">
+                    <div class="person-head"></div>
+                    <div class="person-hair"></div>
+                    <div class="person-beard"></div>
+                    <div class="person-arm left"></div>
+                    <div class="person-arm right"></div>
+                    <div class="person-body"></div>
+                    <div class="person-legs"></div>
+                    <div class="person-feet"></div>
+                </div>
+                <div class="document doc1"></div>
+                <div class="document doc2"></div>
+                <div class="document doc3"></div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="form-header">
+                <h1 class="form-title">Sign Up</h1>
+            </div>
+
+            <form id="signupForm" novalidate>
+                <div class="form-group">
+                    <div class="form-icon">👤</div>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" required>
+                    <div class="error-message" id="firstNameError"></div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-icon">👤</div>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" required>
+                    <div class="error-message" id="lastNameError"></div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-icon">👤</div>
+                    <input type="text" class="form-control" id="username" placeholder="Enter Username" required>
+                    <div class="error-message" id="usernameError"></div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-icon">✉️</div>
+                    <input type="email" class="form-control" id="email" placeholder="Enter Email" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-icon">🔒</div>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Password" required>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-icon">🔒</div>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                    <div class="error-message" id="confirmPasswordError"></div>
+                </div>
+
+                <div class="checkbox-group">
+                    <div class="checkbox" id="agreeCheckbox"></div>
+                    <label class="checkbox-label" for="agreeCheckbox">I agree to all terms</label>
+                </div>
+
+                <button type="submit" class="register-btn" id="registerBtn" disabled>Register</button>
+
+                <div class="success-message" id="successMessage">
+                    Account created successfully! Welcome aboard! 🎉
+                </div>
+            </form>
+
+            <div class="signin-link">
+                Already have an account? <a href="#" id="signInLink">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form elements
+        const form = document.getElementById('signupForm');
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const username = document.getElementById('username');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const agreeCheckbox = document.getElementById('agreeCheckbox');
+        const registerBtn = document.getElementById('registerBtn');
+        const successMessage = document.getElementById('successMessage');
+        const signInLink = document.getElementById('signInLink');
+
+        // State
+        let isAgreed = false;
+
+        // Utility functions
+        function showError(fieldId, message) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            document.getElementById(fieldId).style.borderColor = '#dc3545';
+        }
+
+        function hideError(fieldId) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            errorElement.style.display = 'none';
+            document.getElementById(fieldId).style.borderColor = '#e1e5e9';
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 8;
+        }
+
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldId = field.id;
+            
+            if (!value) {
+                showError(fieldId, 'This field is required');
+                return false;
+            }
+
+            if (fieldId === 'email' && !validateEmail(value)) {
+                showError(fieldId, 'Please enter a valid email address');
+                return false;
+            }
+
+            if (fieldId === 'password' && !validatePassword(value)) {
+                showError(fieldId, 'Password must be at least 8 characters long');
+                return false;
+            }
+
+            if (fieldId === 'confirmPassword' && value !== password.value) {
+                showError(fieldId, 'Passwords do not match');
+                return false;
+            }
+
+            if (fieldId === 'username' && value.length < 3) {
+                showError(fieldId, 'Username must be at least 3 characters long');
+                return false;
+            }
+
+            hideError(fieldId);
+            return true;
+        }
+
+        function checkFormValidity() {
+            const fields = [firstName, lastName, username, email, password, confirmPassword];
+            const isValid = fields.every(field => validateField(field)) && isAgreed;
+            registerBtn.disabled = !isValid;
+            return isValid;
+        }
+
+        // Event listeners
+        [firstName, lastName, username, email, password, confirmPassword].forEach(field => {
+            field.addEventListener('input', () => {
+                validateField(field);
+                checkFormValidity();
+            });
+
+            field.addEventListener('blur', () => {
+                validateField(field);
+                checkFormValidity();
+            });
+        });
+
+        // Checkbox functionality
+        agreeCheckbox.addEventListener('click', function() {
+            isAgreed = !isAgreed;
+            this.classList.toggle('checked', isAgreed);
+            checkFormValidity();
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (checkFormValidity()) {
+                // Simulate form submission
+                registerBtn.textContent = 'Creating Account...';
+                registerBtn.disabled = true;
+
+                setTimeout(() => {
+                    successMessage.style.display = 'block';
+                    form.style.display = 'none';
+                    
+                    // Reset after 3 seconds for demo purposes
+                    setTimeout(() => {
+                        form.style.display = 'block';
+                        successMessage.style.display = 'none';
+                        form.reset();
+                        isAgreed = false;
+                        agreeCheckbox.classList.remove('checked');
+                        registerBtn.textContent = 'Register';
+                        registerBtn.disabled = true;
+                        
+                        // Clear all error messages
+                        [firstName, lastName, username, email, password, confirmPassword].forEach(field => {
+                            hideError(field.id);
+                        });
+                    }, 3000);
+                }, 2000);
+            }
+        });
+
+        // Sign in link
+        signInLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Sign In functionality would redirect to login page');
+        });
+
+        // Initialize
+        checkFormValidity();
+    </script>
+</body>
+</html>
