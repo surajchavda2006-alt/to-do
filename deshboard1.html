@@ -1,315 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Invite Modal</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="deshboard1.css">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .demo-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .demo-title {
-            color: white;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .demo-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-        }
-
-        .trigger-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .trigger-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { 
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.9);
-            }
-            to { 
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        .modal {
-            background: white;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 520px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            animation: slideIn 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-header {
-            padding: 24px 24px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #333;
-            margin: 0;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #666;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .close-btn:hover {
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .modal-body {
-            padding: 0 24px 24px;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            background: #fafbfc;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #ff6b6b;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
-        }
-
-        .input-group {
-            display: flex;
-            gap: 12px;
-        }
-
-        .send-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff5252);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-        }
-
-        .send-btn:hover {
-            background: linear-gradient(45deg, #ff5252, #ff4444);
-            transform: translateY(-1px);
-        }
-
-        .members-section {
-            margin-top: 32px;
-        }
-
-        .members-title {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 16px;
-            font-size: 0.95rem;
-        }
-
-        .member-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .member-item:last-child {
-            border-bottom: none;
-        }
-
-        .member-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 12px;
-        }
-
-        .member-info {
-            flex: 1;
-        }
-
-        .member-name {
-            font-weight: 600;
-            color: #333;
-            font-size: 0.9rem;
-            margin-bottom: 2px;
-        }
-
-        .member-email {
-            color: #666;
-            font-size: 0.8rem;
-        }
-
-        .member-role {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .member-role:hover {
-            background: #e9ecef;
-        }
-
-        .member-role.owner {
-            background: #fff3cd;
-            border-color: #ffeaa7;
-            color: #856404;
-        }
-
-        .project-link-section {
-            margin-top: 24px;
-        }
-
-        .link-group {
-            display: flex;
-            gap: 12px;
-            align-items: end;
-        }
-
-        .copy-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff5252);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .copy-btn:hover {
-            background: linear-gradient(45deg, #ff5252, #ff4444);
-            transform: translateY(-1px);
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-top: 16px;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .go-back-btn {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .go-back-btn:hover {
-            background: #5a6268;
-        }
-    </style>
 </head>
+
 <body>
     <div class="demo-container">
         <h1 class="demo-title">Team Collaboration Dashboard</h1>
@@ -325,19 +24,14 @@
                 <h2 class="modal-title">Send an invite to a new member</h2>
                 <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
-            
+
             <div class="modal-body">
                 <form onsubmit="sendInvite(event)">
                     <div class="form-group">
                         <label class="form-label">Email</label>
                         <div class="input-group">
-                            <input 
-                                type="email" 
-                                class="form-input" 
-                                placeholder="neerajgurung99@gmail.com"
-                                id="emailInput"
-                                required
-                            >
+                            <input type="email" class="form-input" placeholder="neerajgurung99@gmail.com"
+                                id="emailInput" required>
                             <button type="submit" class="send-btn">Send Invite</button>
                         </div>
                     </div>
@@ -349,9 +43,10 @@
 
                 <div class="members-section">
                     <h3 class="members-title">Members</h3>
-                    
+
                     <div class="member-item">
-                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="Upashna Gurung" class="member-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
+                            alt="Upashna Gurung" class="member-avatar">
                         <div class="member-info">
                             <div class="member-name">Upashna Gurung</div>
                             <div class="member-email">upaseygrg332@gmail.com</div>
@@ -364,7 +59,8 @@
                     </div>
 
                     <div class="member-item">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Jeremy Lee" class="member-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                            alt="Jeremy Lee" class="member-avatar">
                         <div class="member-info">
                             <div class="member-name">Jeremy Lee</div>
                             <div class="member-email">jerryles1986@gmail.com</div>
@@ -377,7 +73,8 @@
                     </div>
 
                     <div class="member-item">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Thomas Park" class="member-avatar">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                            alt="Thomas Park" class="member-avatar">
                         <div class="member-info">
                             <div class="member-name">Thomas Park</div>
                             <div class="member-email">parktho23@gmail.com</div>
@@ -388,7 +85,8 @@
                     </div>
 
                     <div class="member-item">
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" alt="Rachel Takahasi" class="member-avatar">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
+                            alt="Rachel Takahasi" class="member-avatar">
                         <div class="member-info">
                             <div class="member-name">Rachel Takahasi</div>
                             <div class="member-email">takahasirao32@gmail.com</div>
@@ -405,13 +103,8 @@
                     <div class="form-group">
                         <label class="form-label">Project Link</label>
                         <div class="link-group">
-                            <input 
-                                type="url" 
-                                class="form-input" 
-                                value="https://sharelinkhereandhhere.com/3456xy29"
-                                id="projectLink"
-                                readonly
-                            >
+                            <input type="url" class="form-input" value="https://sharelinkhereandhhere.com/3456xy29"
+                                id="projectLink" readonly>
                             <button class="copy-btn" onclick="copyLink()">Copy Link</button>
                         </div>
                     </div>
@@ -431,11 +124,11 @@
             if (event && event.target !== event.currentTarget && !event.target.classList.contains('close-btn')) {
                 return;
             }
-            
+
             const overlay = document.getElementById('modalOverlay');
             overlay.classList.remove('active');
             document.body.style.overflow = 'auto';
-            
+
             // Reset form and hide success message
             document.getElementById('emailInput').value = '';
             document.getElementById('successMessage').style.display = 'none';
@@ -444,20 +137,20 @@
         function sendInvite(event) {
             event.preventDefault();
             const email = document.getElementById('emailInput').value;
-            
+
             if (email) {
                 // Show success message
                 const successMsg = document.getElementById('successMessage');
                 successMsg.style.display = 'block';
-                
+
                 // Clear the input
                 document.getElementById('emailInput').value = '';
-                
+
                 // Hide success message after 3 seconds
                 setTimeout(() => {
                     successMsg.style.display = 'none';
                 }, 3000);
-                
+
                 console.log('Invite sent to:', email);
             }
         }
@@ -466,28 +159,28 @@
             const linkInput = document.getElementById('projectLink');
             linkInput.select();
             linkInput.setSelectionRange(0, 99999); // For mobile devices
-            
+
             try {
                 document.execCommand('copy');
-                
+
                 // Visual feedback
                 const btn = event.target;
                 const originalText = btn.textContent;
                 btn.textContent = 'Copied!';
                 btn.style.background = '#28a745';
-                
+
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.style.background = '';
                 }, 2000);
-                
+
             } catch (err) {
                 console.error('Failed to copy: ', err);
             }
         }
 
         // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeModal();
             }
@@ -495,9 +188,9 @@
 
         // Handle member role changes
         document.querySelectorAll('.member-role').forEach(select => {
-            select.addEventListener('change', function() {
+            select.addEventListener('change', function () {
                 console.log('Role changed for member:', this.value);
-                
+
                 // Visual feedback for owner role
                 if (this.value === 'Owner') {
                     this.classList.add('owner');
@@ -508,4 +201,5 @@
         });
     </script>
 </body>
+
 </html>
