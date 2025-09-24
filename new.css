@@ -18,6 +18,61 @@ body {
   background-color: white;
 }
 
+/* Hamburger styling */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  margin-left: 15px;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Sidebar toggle on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    height: 100%;
+    width: 250px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  /* When checkbox is checked, sidebar slides in */
+  #menu-toggle:checked ~ .main .sidebar {
+    left: 0;
+  }
+
+  /* Animate hamburger into X */
+  #menu-toggle:checked + nav .hamburger div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  #menu-toggle:checked + nav .hamburger div:nth-child(2) {
+    opacity: 0;
+  }
+  #menu-toggle:checked + nav .hamburger div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+
+
+.navbar {
+  min-height: 4rem
+}
+
 .logo {
   font-size: 28px;
   font-weight: bold;
@@ -90,10 +145,13 @@ body {
 
 /* Sidebar */
 .sidebar {
+  position: sticky;
+  top: 0;
   width: 300px;
+  height: 100vh;
   background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
   color: white;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
 }
@@ -101,7 +159,7 @@ body {
 .user-profile {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   flex-direction: column;
   text-align: center;
 }
@@ -154,9 +212,12 @@ body {
   width: 20px;
   margin-right: 12px;
 }
+
 #logout{
   border: 1px solid #111;
+  margin: 0;
 }
+
 /* Main Content */
 .main-content {
   flex: 1;
@@ -164,6 +225,12 @@ body {
 }
 
 .welcome {
+  display: flex; 
+  align-items: center;
+  justify-content: space-between;
+}
+
+.welcome-text {
   font-size: 32px;
   font-weight: 700;
   color: #333;
@@ -171,7 +238,7 @@ body {
 }
 
 .welcome-emoji {
-  margin-left: 10px;
+  margin-left: 2px;
 }
 
 .team-avatars {
@@ -489,8 +556,11 @@ body {
   }
 
   .header {
-    flex-direction: column;
     gap: 20px;
+  }
+
+  .nav {
+    padding: 10px 0;
   }
 
   .search-container {

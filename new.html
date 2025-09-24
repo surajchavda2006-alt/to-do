@@ -1,271 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Dashboard</title>
+    <link rel="stylesheet" href="new.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task Dashboard</title>
-  <link rel="stylesheet" href="new.css">
-
-</head>
-
-<body>
-  <nav class="nav">
-    <div class="header">
-      <div class="logo"><span>Dash</span><span>board</span></div>
-      <div class="search-container">
-        <span class="search-icon">🔍</span>
-        <input type="text" class="search-input" placeholder="Search your task here..." />
-      </div>
-      <div class="header-actions">
-        <button class="invite-btn">🔗</button>
-        <button class="invite-btn">📅</button>
-        <div class="date-info">
-          <div class="date-day">Tuesday</div>
-          <div class="date-full">20/06/2023</div>
+  <body>
+    <nav class="nav navbar">
+      <div class="header">
+        <div class="logo"><span>Dash</span><span>board</span></div>
+        <div class="search-container">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search your task here..."
+          />
+        </div>
+        <div class="header-actions">
+          <button class="invite-btn">🔗</button>
+          <button class="invite-btn">📅</button>
+          <div class="date-info">
+            <div class="date-day">Tuesday</div>
+            <div class="date-full">20/06/2023</div>
+          </div>
+        </div>
+        <div class="hamburger">
+          <div class="oen"></div>
+          <div class=""></div>
         </div>
       </div>
-    </div>
-  </nav>
-  <div class="main">
+    </nav>
+    <div class="main">
+      <div class="sidebar">
+        <div class="user-profile">
+          <img
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+            alt="Profile"
+            class="avatar"
+          />
+          <div class="user-name">Sundar Gurung</div>
+          <div class="user-email">sundargurung360@gmail.com</div>
+        </div>
 
-    <div class="sidebar">
-      <div class="user-profile">
-        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-          alt="Profile" class="avatar" />
-        <div class="user-name">Sundar Gurung</div>
-        <div class="user-email">sundargurung360@gmail.com</div>
+        <nav class="nav-menu">
+          <div class="nav-item active">
+            <span class="nav-icon">📊</span>
+            Dashboard
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">❗</span>
+            Vital Task
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">📋</span>
+            My Task
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">📁</span>
+            Task Categories
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">⚙️</span>
+            Settings
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">❓</span>
+            Help
+          </div>
+        </nav>
+
+        <div id="logout" class="nav-item" style="margin-top: auto">
+          <span class="nav-icon">🚪</span>
+          Logout
+        </div>
       </div>
 
-      <nav class="nav-menu">
-        <div class="nav-item active">
-          <span class="nav-icon">📊</span>
-          Dashboard
-        </div>
-        <div class="nav-item">
-          <span class="nav-icon">❗</span>
-          Vital Task
-        </div>
-        <div class="nav-item">
-          <span class="nav-icon">📋</span>
-          My Task
-        </div>
-        <div class="nav-item">
-          <span class="nav-icon">📁</span>
-          Task Categories
-        </div>
-        <div class="nav-item">
-          <span class="nav-icon">⚙️</span>
-          Settings
-        </div>
-       <div class="nav-item">
-          <span class="nav-icon">❓</span>
-          Help
-        </div>
-      </nav>
+      <div class="main-content">
+        <div class="welcome">
+          <span class="welcome-text">Welcome back, Sundar <span class="welcome-emoji">👋</span></span>
 
-      <div id="logout" class="nav-item" style="margin-top: auto">
-        <span class="nav-icon">🚪</span>
-        Logout
-      </div>
-    </div>
-
-    <div class="main-content">
-
-
-      <div class="welcome">
-        Welcome back, Sundar <span class="welcome-emoji">👋</span>
-      </div>
-
-      <div class="team-avatars">
-        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face"
-          alt="Team member" class="team-avatar" />
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face"
-          alt="Team member" class="team-avatar" />
-        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
-          alt="Team member" class="team-avatar" />
-        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face"
-          alt="Team member" class="team-avatar" />
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&h=50&fit=crop&crop=face"
-          alt="Team member" class="team-avatar" />
-        <button class="invite-btn">👥 Invite</button>
-      </div>
-
-      <div class="dashboard-grid">
-        <div class="left-panel">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">📋 To-Do</div>
-              <div class="add-task-btn">+ Add task</div>
-            </div>
-            <div class="task-date" style="margin-bottom: 20px; color: #666; font-size: 14px">
-              20 June • Today
-            </div>
-
-            <div class="task-item" onclick="toggleTask(this)">
-              <div class="task-checkbox"></div>
-              <div class="task-content">
-                <div class="task-title">Attend Nischal's Birthday Party</div>
-                <div class="task-description">
-                  Buy gifts on the way and pick up cake from the bakery. (6 PM |
-                  Fresh Elements).....
-                </div>
-                <div class="task-meta">
-                  <span class="priority moderate">Priority: Moderate</span>
-                  <span class="status not-started">Status: Not Started</span>
-                  <span>Created on: 20/06/2023</span>
-                </div>
-              </div>
-              <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=100&h=100&fit=crop"
-                alt="Birthday party" class="task-image" />
-            </div>
-
-            <div class="task-item" onclick="toggleTask(this)">
-              <div class="task-checkbox"></div>
-              <div class="task-content">
-                <div class="task-title">Landing Page Design for TravelDays</div>
-                <div class="task-description">
-                  Get the work done by EOD and discuss with client before
-                  leaving. (4 PM | Meeting Room)
-                </div>
-                <div class="task-meta">
-                  <span class="priority moderate">Priority: Moderate</span>
-                  <span class="status in-progress">Status: In Progress</span>
-                  <span>Created on: 20/06/2023</span>
-                </div>
-              </div>
-              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&fit=crop"
-                alt="Design work" class="task-image" />
-            </div>
-
-            <div class="task-item" onclick="toggleTask(this)">
-              <div class="task-checkbox"></div>
-              <div class="task-content">
-                <div class="task-title">Presentation on Final Product</div>
-                <div class="task-description">
-                  Make sure everything is functioning and all the necessities
-                  are properly met. Prepare the team and get the documents ready
-                  for...
-                </div>
-                <div class="task-meta">
-                  <span class="priority moderate">Priority: Moderate</span>
-                  <span class="status in-progress">Status: In Progress</span>
-                  <span>Created on: 19/06/2023</span>
-                </div>
-              </div>
-              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop"
-                alt="Presentation" class="task-image" />
-            </div>
+          <div class="team-avatars">
+            <img
+              src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face"
+              alt="Team member"
+              class="team-avatar"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face"
+              alt="Team member"
+              class="team-avatar"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+              alt="Team member"
+              class="team-avatar"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face"
+              alt="Team member"
+              class="team-avatar"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&h=50&fit=crop&crop=face"
+              alt="Team member"
+              class="team-avatar"
+            />
+            <button class="invite-btn">👥 Invite</button>
           </div>
         </div>
 
-        <div class="right-panel">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">📊 Task Status</div>
-            </div>
-            <div class="progress-container">
-              <div class="progress-circle">
-                <div class="circle completed">84%</div>
-                <div class="progress-label">
-                  <span class="progress-dot completed"></span>
-                  Completed
-                </div>
+        <div class="dashboard-grid">
+          <div class="left-panel">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">📋 To-Do</div>
+                <div class="add-task-btn">+ Add task</div>
               </div>
-              <div class="progress-circle">
-                <div class="circle in-progress">46%</div>
-                <div class="progress-label">
-                  <span class="progress-dot in-progress"></span>
-                  In Progress
-                </div>
+              <div
+                class="task-date"
+                style="margin-bottom: 20px; color: #666; font-size: 14px"
+              >
+                20 June • Today
               </div>
-              <div class="progress-circle">
-                <div class="circle not-started">13%</div>
-                <div class="progress-label">
-                  <span class="progress-dot not-started"></span>
-                  Not Started
+
+              <div class="task-item" onclick="toggleTask(this)">
+                <div class="task-checkbox"></div>
+                <div class="task-content">
+                  <div class="task-title">Attend Nischal's Birthday Party</div>
+                  <div class="task-description">
+                    Buy gifts on the way and pick up cake from the bakery. (6 PM
+                    | Fresh Elements).....
+                  </div>
+                  <div class="task-meta">
+                    <span class="priority moderate">Priority: Moderate</span>
+                    <span class="status not-started">Status: Not Started</span>
+                    <span>Created on: 20/06/2023</span>
+                  </div>
                 </div>
+                <img
+                  src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=100&h=100&fit=crop"
+                  alt="Birthday party"
+                  class="task-image"
+                />
+              </div>
+
+              <div class="task-item" onclick="toggleTask(this)">
+                <div class="task-checkbox"></div>
+                <div class="task-content">
+                  <div class="task-title">
+                    Landing Page Design for TravelDays
+                  </div>
+                  <div class="task-description">
+                    Get the work done by EOD and discuss with client before
+                    leaving. (4 PM | Meeting Room)
+                  </div>
+                  <div class="task-meta">
+                    <span class="priority moderate">Priority: Moderate</span>
+                    <span class="status in-progress">Status: In Progress</span>
+                    <span>Created on: 20/06/2023</span>
+                  </div>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&fit=crop"
+                  alt="Design work"
+                  class="task-image"
+                />
+              </div>
+
+              <div class="task-item" onclick="toggleTask(this)">
+                <div class="task-checkbox"></div>
+                <div class="task-content">
+                  <div class="task-title">Presentation on Final Product</div>
+                  <div class="task-description">
+                    Make sure everything is functioning and all the necessities
+                    are properly met. Prepare the team and get the documents
+                    ready for...
+                  </div>
+                  <div class="task-meta">
+                    <span class="priority moderate">Priority: Moderate</span>
+                    <span class="status in-progress">Status: In Progress</span>
+                    <span>Created on: 19/06/2023</span>
+                  </div>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop"
+                  alt="Presentation"
+                  class="task-image"
+                />
               </div>
             </div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">✅ Completed Task</div>
-            </div>
-
-            <div class="completed-task-item">
-              <div class="task-checkbox completed"></div>
-              <div class="completed-task-content">
-                <div class="completed-task-title">Walk the dog</div>
-                <div class="completed-task-description">
-                  Take the dog to the park and bring treats as well.
+          <div class="right-panel">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">📊 Task Status</div>
+              </div>
+              <div class="progress-container">
+                <div class="progress-circle">
+                  <div class="circle completed">84%</div>
+                  <div class="progress-label">
+                    <span class="progress-dot completed"></span>
+                    Completed
+                  </div>
                 </div>
-                <div class="completed-task-meta">
-                  <span class="status completed">Status: Completed</span><br />
-                  Completed 2 days ago.
+                <div class="progress-circle">
+                  <div class="circle in-progress">46%</div>
+                  <div class="progress-label">
+                    <span class="progress-dot in-progress"></span>
+                    In Progress
+                  </div>
+                </div>
+                <div class="progress-circle">
+                  <div class="circle not-started">13%</div>
+                  <div class="progress-label">
+                    <span class="progress-dot not-started"></span>
+                    Not Started
+                  </div>
                 </div>
               </div>
-              <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=100&h=100&fit=crop"
-                alt="Dog walking" class="completed-task-image" />
             </div>
 
-            <div class="completed-task-item">
-              <div class="task-checkbox completed"></div>
-              <div class="completed-task-content">
-                <div class="completed-task-title">Conduct meeting</div>
-                <div class="completed-task-description">
-                  Meet with the client and finalize requirements.
-                </div>
-                <div class="completed-task-meta">
-                  <span class="status completed">Status: Completed</span><br />
-                  Completed 2 days ago.
-                </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">✅ Completed Task</div>
               </div>
-              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop" alt="Meeting"
-                class="completed-task-image" />
+
+              <div class="completed-task-item">
+                <div class="task-checkbox completed"></div>
+                <div class="completed-task-content">
+                  <div class="completed-task-title">Walk the dog</div>
+                  <div class="completed-task-description">
+                    Take the dog to the park and bring treats as well.
+                  </div>
+                  <div class="completed-task-meta">
+                    <span class="status completed">Status: Completed</span
+                    ><br />
+                    Completed 2 days ago.
+                  </div>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=100&h=100&fit=crop"
+                  alt="Dog walking"
+                  class="completed-task-image"
+                />
+              </div>
+
+              <div class="completed-task-item">
+                <div class="task-checkbox completed"></div>
+                <div class="completed-task-content">
+                  <div class="completed-task-title">Conduct meeting</div>
+                  <div class="completed-task-description">
+                    Meet with the client and finalize requirements.
+                  </div>
+                  <div class="completed-task-meta">
+                    <span class="status completed">Status: Completed</span
+                    ><br />
+                    Completed 2 days ago.
+                  </div>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop"
+                  alt="Meeting"
+                  class="completed-task-image"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    // Task toggle functionality
-    function toggleTask(taskElement) {
-      const checkbox = taskElement.querySelector(".task-checkbox");
-      checkbox.classList.toggle("completed");
+    <script>
+      // Task toggle functionality
+      function toggleTask(taskElement) {
+        const checkbox = taskElement.querySelector(".task-checkbox");
+        checkbox.classList.toggle("completed");
 
-      if (checkbox.classList.contains("completed")) {
-        taskElement.style.opacity = "0.6";
-      } else {
-        taskElement.style.opacity = "1";
+        if (checkbox.classList.contains("completed")) {
+          taskElement.style.opacity = "0.6";
+        } else {
+          taskElement.style.opacity = "1";
+        }
       }
-    }
 
-    // Navigation menu functionality
-    document.querySelectorAll(".nav-item").forEach((item) => {
-      item.addEventListener("click", function () {
-        document
-          .querySelectorAll(".nav-item")
-          .forEach((nav) => nav.classList.remove("active"));
-        this.classList.add("active");
+      // Navigation menu functionality
+      document.querySelectorAll(".nav-item").forEach((item) => {
+        item.addEventListener("click", function () {
+          document
+            .querySelectorAll(".nav-item")
+            .forEach((nav) => nav.classList.remove("active"));
+          this.classList.add("active");
+        });
       });
-    });
 
-    // Add task functionality
-    document
-      .querySelector(".add-task-btn")
-      .addEventListener("click", function () {
-        const taskTitle = prompt("Enter task title:");
-        if (taskTitle) {
-          const taskContainer = document.querySelector(".left-panel .card");
-          const newTask = document.createElement("div");
-          newTask.className = "task-item";
-          newTask.onclick = () => toggleTask(newTask);
+      // Add task functionality
+      document
+        .querySelector(".add-task-btn")
+        .addEventListener("click", function () {
+          const taskTitle = prompt("Enter task title:");
+          if (taskTitle) {
+            const taskContainer = document.querySelector(".left-panel .card");
+            const newTask = document.createElement("div");
+            newTask.className = "task-item";
+            newTask.onclick = () => toggleTask(newTask);
 
-          newTask.innerHTML = `
+            newTask.innerHTML = `
                     <div class="task-checkbox"></div>
                     <div class="task-content">
                         <div class="task-title">${taskTitle}</div>
@@ -279,83 +322,82 @@
                     <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=100&h=100&fit=crop" alt="Task" class="task-image">
                 `;
 
-          taskContainer.appendChild(newTask);
-        }
-      });
-
-    // Search functionality
-    document
-      .querySelector(".search-input")
-      .addEventListener("input", function (e) {
-        const searchTerm = e.target.value.toLowerCase();
-        const tasks = document.querySelectorAll(".task-item");
-
-        tasks.forEach((task) => {
-          const title = task
-            .querySelector(".task-title")
-            .textContent.toLowerCase();
-          const description = task
-            .querySelector(".task-description")
-            .textContent.toLowerCase();
-
-          if (
-            title.includes(searchTerm) ||
-            description.includes(searchTerm)
-          ) {
-            task.style.display = "flex";
-          } else {
-            task.style.display = searchTerm === "" ? "flex" : "none";
+            taskContainer.appendChild(newTask);
           }
         });
-      });
 
-    // Initialize date
-    function updateDate() {
-      const now = new Date();
-      const days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      const day = days[now.getDay()];
-      const date = now.toLocaleDateString("en-GB");
+      // Search functionality
+      document
+        .querySelector(".search-input")
+        .addEventListener("input", function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+          const tasks = document.querySelectorAll(".task-item");
 
-      document.querySelector(".date-day").textContent = day;
-      document.querySelector(".date-full").textContent = date;
-    }
+          tasks.forEach((task) => {
+            const title = task
+              .querySelector(".task-title")
+              .textContent.toLowerCase();
+            const description = task
+              .querySelector(".task-description")
+              .textContent.toLowerCase();
 
-    // Update progress circles animation
-    function animateProgressCircles() {
-      const circles = document.querySelectorAll(".circle");
-      circles.forEach((circle) => {
-        circle.style.transform = "scale(0.8)";
-        setTimeout(() => {
-          circle.style.transform = "scale(1)";
-        }, 100);
-      });
-    }
-
-    // Initialize
-    updateDate();
-    setTimeout(animateProgressCircles, 500);
-
-    // Smooth hover effects
-    document
-      .querySelectorAll(".task-item, .nav-item, .invite-btn")
-      .forEach((item) => {
-        item.addEventListener("mouseenter", function () {
-          this.style.transform = "translateY(-2px)";
+            if (
+              title.includes(searchTerm) ||
+              description.includes(searchTerm)
+            ) {
+              task.style.display = "flex";
+            } else {
+              task.style.display = searchTerm === "" ? "flex" : "none";
+            }
+          });
         });
 
-        item.addEventListener("mouseleave", function () {
-          this.style.transform = "translateY(0)";
-        });
-      });
-  </script>
-</body>
+      // Initialize date
+      function updateDate() {
+        const now = new Date();
+        const days = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+        const day = days[now.getDay()];
+        const date = now.toLocaleDateString("en-GB");
 
+        document.querySelector(".date-day").textContent = day;
+        document.querySelector(".date-full").textContent = date;
+      }
+
+      // Update progress circles animation
+      function animateProgressCircles() {
+        const circles = document.querySelectorAll(".circle");
+        circles.forEach((circle) => {
+          circle.style.transform = "scale(0.8)";
+          setTimeout(() => {
+            circle.style.transform = "scale(1)";
+          }, 100);
+        });
+      }
+
+      // Initialize
+      updateDate();
+      setTimeout(animateProgressCircles, 500);
+
+      // Smooth hover effects
+      document
+        .querySelectorAll(".task-item, .nav-item, .invite-btn")
+        .forEach((item) => {
+          item.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-2px)";
+          });
+
+          item.addEventListener("mouseleave", function () {
+            this.style.transform = "translateY(0)";
+          });
+        });
+    </script>
+  </body>
 </html>
