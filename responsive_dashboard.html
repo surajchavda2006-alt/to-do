@@ -49,7 +49,8 @@
             background-color: #f0f0f0;
         }
 
-        .hamburger div {
+        .hamburger div,
+        .hamburger .hamburger-line {
             width: 25px;
             height: 3px;
             background: #333;
@@ -745,9 +746,9 @@
     <nav class="nav navbar">
         <div class="header">
             <label for="menu-toggle" class="hamburger">
-                <div></div>
-                <div></div>
-                <div></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
             </label>
             <div class="logo"><span>Dash</span><span>board</span></div>
             <div class="search-container">
@@ -1040,4 +1041,122 @@
 
         // Close mobile menu when overlay is clicked
         document.querySelector('.mobile-overlay').addEventListener('click', function() {
-            document.getElementById('menu-toggle').
+            document.getElementById('menu-toggle').checked = false;
+        });
+
+        // Add task functionality
+        document
+            .querySelector(".add-task-btn")
+            .addEventListener("click", function () {
+                const taskTitle = prompt("Enter task title:");
+                if (taskTitle) {
+                    const taskContainer = document.querySelector(".left-panel .card");
+                    const newTask = document.createElement("div");
+                    newTask.className = "task-item";
+                    newTask.onclick = () => toggleTask(newTask);
+
+                    newTask.innerHTML = `
+                        <div class="task-checkbox"></div>
+                        <div class="task-content">
+                            <div class="task-title">${taskTitle}</div>
+                            <div class="task-description">New task description...</div>
+                            <div class="task-meta">
+                                <span class="priority moderate">Priority: Moderate</span>
+                                <span class="status not-started">Status: Not Started</span>
+                                <span>Created on: ${new Date().toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=100&h=100&fit=crop" alt="Task" class="task-image">
+                    `;
+
+                    taskContainer.appendChild(newTask);
+                }
+            });
+
+        // Search functionality
+        document
+            .querySelector(".search-input")
+            .addEventListener("input", function (e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const tasks = document.querySelectorAll(".task-item");
+
+                tasks.forEach((task) => {
+                    const title = task
+                        .querySelector(".task-title")
+                        .textContent.toLowerCase();
+                    const description = task
+                        .querySelector(".task-description")
+                        .textContent.toLowerCase();
+
+                    if (
+                        title.includes(searchTerm) ||
+                        description.includes(searchTerm)
+                    ) {
+                        task.style.display = "flex";
+                    } else {
+                        task.style.display = searchTerm === "" ? "flex" : "none";
+                    }
+                });
+            });
+
+        // Initialize date
+        function updateDate() {
+            const now = new Date();
+            const days = [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+            ];
+            const day = days[now.getDay()];
+            const date = now.toLocaleDateString("en-GB");
+
+            document.querySelector(".date-day").textContent = day;
+            document.querySelector(".date-full").textContent = date;
+        }
+
+        // Update progress circles animation
+        function animateProgressCircles() {
+            const circles = document.querySelectorAll(".circle");
+            circles.forEach((circle) => {
+                circle.style.transform = "scale(0.8)";
+                setTimeout(() => {
+                    circle.style.transform = "scale(1)";
+                }, 100);
+            });
+        }
+
+        // Initialize
+        updateDate();
+        setTimeout(animateProgressCircles, 500);
+
+        // Smooth hover effects
+        document
+            .querySelectorAll(".task-item, .nav-item, .invite-btn")
+            .forEach((item) => {
+                item.addEventListener("mouseenter", function () {
+                    if (!window.matchMedia("(max-width: 768px)").matches) {
+                        this.style.transform = "translateY(-2px)";
+                    }
+                });
+
+                item.addEventListener("mouseleave", function () {
+                    if (!window.matchMedia("(max-width: 768px)").matches) {
+                        this.style.transform = "translateY(0)";
+                    }
+                });
+            });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            // Close mobile menu on resize to larger screen
+            if (window.innerWidth > 768) {
+                document.getElementById('menu-toggle').checked = false;
+            }
+        });
+    </script>
+</body>
+</html>
