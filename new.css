@@ -84,20 +84,18 @@ body {
 }
 
 .main {
+  width: 100%;
   display: flex;
 }
 
 /* Sidebar */
 .sidebar {
-  width: 280px;
+  width: 300px;
   background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
   color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  height: 100vh;
-  overflow-y: auto;
 }
 
 .user-profile {
@@ -156,11 +154,12 @@ body {
   width: 20px;
   margin-right: 12px;
 }
-
+#logout{
+  border: 1px solid #111;
+}
 /* Main Content */
 .main-content {
   flex: 1;
-  margin-left: 280px;
   padding: 30px;
 }
 
