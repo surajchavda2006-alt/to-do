@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap CSS -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
+  <link href="./bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    /* Retain your custom global / background / illustration CSS */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #FF6B7A;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+/* 
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 5h10v10H5V5zm20 0h10v10H25V5zm-20 20h10v10H5V25zm20 0h10v10H25V25z' fill='%23FF5A6B' fill-opacity='0.3'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='8' fill='none' stroke='%23FF5A6B' stroke-width='2' opacity='0.2'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10l5 5-5 5-5-5zm60 0l5 5-5 5-5-5zm-60 60l5 5-5 5-5-5zm60 0l5 5-5 5-5-5z' fill='%23FF5A6B' opacity='0.2'/%3E%3C/svg%3E");
+      background-size: 40px 40px, 60px 60px, 80px 80px;
+      animation: float 20s ease-in-out infinite;
+    } */
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+
+    /* Container and sections – override/augment Bootstrap defaults */
+    .custom-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .left-section {
+      /* preserve your illustration, gradient, etc */
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 40px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .illustration {
+      width: clamp(200px, 30vw, 280px);
+      height: clamp(200px, 30vw, 280px);
+      position: relative;
+    }
+
+    /* (Your other illustration CSS parts go here — head, body, docs, etc) */
+    .person {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(80px, 15vw, 120px);
+      height: clamp(130px, 25vw, 200px);
+    }
+    .person-head {
+      width: clamp(35px, 6vw, 50px);
+      height: clamp(35px, 6vw, 50px);
+      background: #8B4513;
+      border-radius: 50%;
+      position: absolute;
+      top: clamp(15px, 3vw, 20px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+    .person-hair {
+      width: clamp(40px, 7vw, 55px);
+      height: clamp(25px, 4vw, 35px);
+      background: #4A148C;
+      border-radius: 30px 30px 20px 20px;
+      position: absolute;
+      top: clamp(12px, 2.5vw, 18px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 6;
+    }
+    .person-beard {
+      width: clamp(22px, 4vw, 30px);
+      height: clamp(18px, 3vw, 25px);
+      background: #4A148C;
+      border-radius: 0 0 15px 15px;
+      position: absolute;
+      top: clamp(40px, 7vw, 55px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+    .person-body {
+      width: clamp(55px, 10vw, 80px);
+      height: clamp(70px, 12vw, 100px);
+      background: white;
+      border-radius: 40px 40px 20px 20px;
+      position: absolute;
+      top: clamp(50px, 8vw, 70px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .person-arm {
+      width: clamp(18px, 3vw, 25px);
+      height: clamp(50px, 8vw, 70px);
+      background: #8B4513;
+      border-radius: 15px;
+      position: absolute;
+      top: clamp(60px, 10vw, 85px);
+      z-index: 4;
+    }
+    .person-arm.left {
+      left: clamp(5px, 1vw, 10px);
+      transform: rotate(-20deg);
+    }
+    .person-arm.right {
+      right: clamp(5px, 1vw, 10px);
+      transform: rotate(20deg);
+    }
+    .person-legs {
+      width: clamp(40px, 7vw, 60px);
+      height: clamp(55px, 9vw, 80px);
+      background: #303F9F;
+      border-radius: 30px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+    .person-feet {
+      width: clamp(65px, 11vw, 90px);
+      height: clamp(15px, 2.5vw, 20px);
+      background: #2196F3;
+      border-radius: 30px;
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .document {
+      position: absolute;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .doc1 {
+      width: clamp(60px, 10vw, 80px);
+      height: clamp(75px, 12vw, 100px);
+      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+      top: clamp(20px, 4vw, 30px);
+      right: clamp(25px, 5vw, 40px);
+      transform: rotate(15deg);
+      z-index: 3;
+    }
+    .doc1::after {
+      content: '';
+      position: absolute;
+      top: 15%;
+      left: 12%;
+      right: 12%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 2px;
+      box-shadow: 0 8px 0 rgba(255, 255, 255, 0.6), 0 16px 0 rgba(255, 255, 255, 0.4);
+    }
+    .doc2 {
+      width: clamp(55px, 9vw, 70px);
+      height: clamp(70px, 11vw, 90px);
+      background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+      top: clamp(35px, 6vw, 50px);
+      right: clamp(5px, 1vw, 10px);
+      transform: rotate(-10deg);
+      z-index: 2;
+    }
+    .doc2::after {
+      content: '';
+      position: absolute;
+      top: 13%;
+      left: 11%;
+      right: 11%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 2px;
+      box-shadow: 0 6px 0 rgba(255, 255, 255, 0.6), 0 12px 0 rgba(255, 255, 255, 0.4);
+    }
+    .doc3 {
+      width: clamp(70px, 11vw, 90px);
+      height: clamp(55px, 9vw, 70px);
+      background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+      top: clamp(60px, 10vw, 80px);
+      left: clamp(10px, 2vw, 20px);
+      transform: rotate(-5deg);
+      z-index: 4;
+    }
+    .doc3::after {
+      content: '';
+      position: absolute;
+      top: 21%;
+      left: 13%;
+      right: 13%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 2px;
+      box-shadow: 0 8px 0 rgba(255, 255, 255, 0.6), 0 16px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    /* You can remove or reduce custom form CSS (we’ll use Bootstrap) */
+    .error-message {
+      color: #dc3545;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+    .success-message {
+      color: #28a745;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container custom-container">
+    <div class="row g-0">
+      <!-- Left: preserve custom illustration part -->
+      <div class="col-md-6 left-section d-none d-md-flex">
+        <div class="illustration">
+          <div class="person">
+            <div class="person-head"></div>
+            <div class="person-hair"></div>
+            <div class="person-beard"></div>
+            <div class="person-arm left"></div>
+            <div class="person-arm right"></div>
+            <div class="person-body"></div>
+            <div class="person-legs"></div>
+            <div class="person-feet"></div>
+          </div>
+          <div class="document doc1"></div>
+          <div class="document doc2"></div>
+          <div class="document doc3"></div>
+        </div>
+      </div>
+
+      <!-- Right: form using Bootstrap classes where possible -->
+      <div class="col-md-6 p-4 p-md-5">
+        <div class="text-center mb-4">
+          <h1 class="h2">Sign Up</h1>
+        </div>
+
+        <form id="signupForm" novalidate>
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" required>
+            <div class="invalid-feedback">This field is required</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" required>
+            <div class="invalid-feedback">This field is required</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter Username" required minlength="3">
+            <div class="invalid-feedback">Username must be at least 3 characters</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter Email" required>
+            <div class="invalid-feedback">Please enter a valid email address</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password" required minlength="8">
+            <div class="invalid-feedback">Password must be at least 8 characters long</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+            <div class="invalid-feedback">Passwords do not match</div>
+          </div>
+
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="agreeCheckbox">
+            <label class="form-check-label" for="agreeCheckbox">
+              I agree to all terms and conditions
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-danger w-100" id="registerBtn" disabled>
+            Register
+          </button>
+
+          <div class="success-message" id="successMessage">
+            Account created successfully! Welcome aboard! 🎉
+          </div>
+        </form>
+
+        <div class="text-center mt-4">
+          Already have an account? <a href="#" id="signInLink">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="./bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script> -->
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const fields = [
+      document.getElementById('firstName'),
+      document.getElementById('lastName'),
+      document.getElementById('username'),
+      document.getElementById('email'),
+      document.getElementById('password'),
+      document.getElementById('confirmPassword'),
+    ];
+    const agreeCheckbox = document.getElementById('agreeCheckbox');
+    const registerBtn = document.getElementById('registerBtn');
+    const successMessage = document.getElementById('successMessage');
+
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function checkFieldValidity(field) {
+      const val = field.value.trim();
+      const id = field.id;
+
+      if (!val) {
+        field.classList.add('is-invalid');
+        return false;
+      } else {
+        field.classList.remove('is-invalid');
+      }
+
+      if (id === 'username' && val.length < 3) {
+        field.classList.add('is-invalid');
+        return false;
+      }
+      if (id === 'email' && !validateEmail(val)) {
+        field.classList.add('is-invalid');
+        return false;
+      }
+      if (id === 'password' && val.length < 8) {
+        field.classList.add('is-invalid');
+        return false;
+      }
+      if (id === 'confirmPassword' && val !== document.getElementById('password').value) {
+        field.classList.add('is-invalid');
+        return false;
+      }
+
+      // passed all checks
+      return true;
+    }
+
+    function checkFormValidity() {
+      let allValid = true;
+      fields.forEach(f => {
+        if (!checkFieldValidity(f)) {
+          allValid = false;
+        }
+      });
+      if (!agreeCheckbox.checked) {
+        allValid = false;
+      }
+      registerBtn.disabled = !allValid;
+      return allValid;
+    }
+
+    fields.forEach(f => {
+      f.addEventListener('input', checkFormValidity);
+      f.addEventListener('blur', checkFormValidity);
+    });
+
+    agreeCheckbox.addEventListener('change', checkFormValidity);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (checkFormValidity()) {
+        registerBtn.textContent = 'Creating Account...';
+        registerBtn.disabled = true;
+
+        const hashed = CryptoJS.SHA256(document.getElementById('password').value).toString();
+        const userData = {
+          username: document.getElementById('username').value,
+          email: document.getElementById('email').value,
+          password: hashed
+        };
+        localStorage.setItem('registeredUser', JSON.stringify(userData));
+
+        successMessage.style.display = 'block';
+
+        setTimeout(() => {
+          window.location.href = 'new.html';
+        }, 1500);
+      }
+    });
+
+    document.getElementById('signInLink').addEventListener('click', e => {
+      e.preventDefault();
+      alert('Sign In functionality would redirect to login page');
+    });
+  </script>
+</body>
+</html>

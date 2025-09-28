@@ -52,6 +52,7 @@
             }
         }
 
+        /* Main Container */
         .container {
             background: white;
             border-radius: 20px;
@@ -66,6 +67,7 @@
             z-index: 1;
         }
 
+        /* Left avtar */
         .left-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
@@ -257,6 +259,7 @@
             box-shadow: 0 8px 0 rgba(255, 255, 255, 0.6), 0 16px 0 rgba(255, 255, 255, 0.4);
         }
 
+        /* Right side - Register form */
         .right-section {
             padding: clamp(30px, 5vw, 60px) clamp(20px, 4vw, 40px);
             display: flex;
@@ -669,12 +672,13 @@
             </form>
 
             <div class="signin-link">
-                Already have an account? <a href="#" id="signInLink">Sign In</a>
+                Already have an account? <a href="login.html" id="signInLink">Sign In</a>
             </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script> -->
+    <script src="./ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
         // Form elements
         const form = document.getElementById('signupForm');
@@ -822,7 +826,7 @@
                 const userData = {
                     username: username,
                     email: email,
-                    password: hashedPassword  // ⚠️ Never store plain passwords in real apps!
+                    password: hashedPassword
                 };
 
                 // Save to localStorage
@@ -834,10 +838,10 @@
         });
 
         // Sign in link
-        signInLink.addEventListener('click', function (e) {
-            e.preventDefault();
-            alert('Sign In functionality would redirect to login page');
-        });
+        // signInLink.addEventListener('click', function (e) {
+        //     e.preventDefault();
+        //     alert('Sign In functionality would redirect to login page');
+        // });
 
         // Initialize
         checkFormValidity();

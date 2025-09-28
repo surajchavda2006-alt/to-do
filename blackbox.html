@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster - To-Do List App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .task-card {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .high-priority {
+            border-left-color: #dc3545;
+        }
+        
+        .medium-priority {
+            border-left-color: #ffc107;
+        }
+        
+        .low-priority {
+            border-left-color: #28a745;
+        }
+        
+        .completed {
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .active-page {
+            display: block;
+        }
+        
+        .auth-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('dashboard-page')">TaskMaster</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('dashboard-page')">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('tasks-page')">My Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('create-task-page')">New Task</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('profile-page')">
+                            <i class="bi bi-person-circle"></i> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-4 flex-grow-1">
+        <!-- Login Page -->
+        <div id="login-page" class="page active-page">
+            <div class="row justify-content-center">
+                <div class="col-md-6 auth-container">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">Login to TaskMaster</h2>
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <label for="login-email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="login-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="login-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="login-password" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </div>
+                            </form>
+                            <div class="text-center mt-3">
+                                <p>Don't have an account? <a href="#" onclick="showPage('signup-page')">Sign up</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Page -->
+        <div id="signup-page" class="page">
+            <div class="row justify-content-center">
+                <div class="col-md-6 auth-container">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">Create an Account</h2>
+                            <form id="signup-form">
+                                <div class="mb-3">
+                                    <label for="signup-name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="signup-name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="signup-email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="signup-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="signup-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="signup-password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="signup-confirm-password" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                                </div>
+                            </form>
+                            <div class="text-center mt-3">
+                                <p>Already have an account? <a href="#" onclick="showPage('login-page')">Login</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page">
+            <div class="hero-section p-5 mb-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="display-4">Welcome to TaskMaster!</h1>
+                        <p class="lead">Organize your tasks and boost your productivity.</p>
+                        <button class="btn btn-light" onclick="showPage('create-task-page')">Create New Task</button>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="https://placeholder-image-service.onrender.com/image/300x200?prompt=Productivity%20dashboard%20with%20task%20management%20visualization&id=c6ac1256-e0e6-4a1b-8ac3-7d742e29d72a" alt="Productivity dashboard illustration showing organized tasks and calendar" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="stat-number" id="total-tasks">0</div>
+                        <p>Total Tasks</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="stat-number" id="completed-tasks">0</div>
+                        <p>Completed</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="stat-number" id="pending-tasks">0</div>
+                        <p>Pending</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="stat-number" id="high-priority-tasks">0</div>
+                        <p>High Priority</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card p-4 mb-4">
+                        <h3>Recent Tasks</h3>
+                        <div id="recent-tasks-list">
+                            <!-- Recent tasks will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 mb-4">
+                        <h3>Quick Actions</h3>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" onclick="showPage('create-task-page')">
+                                <i class="bi bi-plus-circle"></i> Add New Task
+                            </button>
+                            <button class="btn btn-outline-primary" onclick="showPage('tasks-page')">
+                                <i class="bi bi-list-task"></i> View All Tasks
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="showPage('profile-page')">
+                                <i class="bi bi-gear"></i> Account Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tasks Page -->
+        <div id="tasks-page" class="page">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>My Tasks</h2>
+                <button class="btn btn-primary" onclick="showPage('create-task-page')">
+                    <i class="bi bi-plus"></i> New Task
+                </button>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search tasks..." id="task-search">
+                        <button class="btn btn-outline-secondary" type="button" id="search-button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="priority-filter">
+                        <option value="">All Priorities</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="status-filter">
+                        <option value="">All Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="tasks-list">
+                <!-- Tasks will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Create Task Page -->
+        <div id="create-task-page" class="page">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">Create New Task</h2>
+                            <form id="task-form">
+                                <div class="mb-3">
+                                    <label for="task-title" class="form-label">Task Title</label>
+                                    <input type="text" class="form-control" id="task-title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="task-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="task-description" rows="3"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="task-due-date" class="form-label">Due Date</label>
+                                        <input type="date" class="form-control" id="task-due-date">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="task-priority" class="form-label">Priority</label>
+                                        <select class="form-select" id="task-priority">
+                                            <option value="low">Low</option>
+                                            <option value="medium" selected>Medium</option>
+                                            <option value="high">High</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Save Task</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Task Page -->
+        <div id="edit-task-page" class="page">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">Edit Task</h2>
+                            <form id="edit-task-form">
+                                <input type="hidden" id="edit-task-id">
+                                <div class="mb-3">
+                                    <label for="edit-task-title" class="form-label">Task Title</label>
+                                    <input type="text" class="form-control" id="edit-task-title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-task-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="edit-task-description" rows="3"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="edit-task-due-date" class="form-label">Due Date</label>
+                                        <input type="date" class="form-control" id="edit-task-due-date">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="edit-task-priority" class="form-label">Priority</label>
+                                        <select class="form-select" id="edit-task-priority">
+                                            <option value="low">Low</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="high">High</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="edit-task-completed">
+                                    <label class="form-check-label" for="edit-task-completed">Mark as completed</label>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="button" class="btn btn-outline-danger" onclick="deleteTask()">Delete Task</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile-page" class="page">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">User Profile</h2>
+                            
+                            <div class="text-center mb-4">
+                                <img src="https://placeholder-image-service.onrender.com/image/120x120?prompt=User%20profile%20avatar%20illustration&id=c6ac1256-e0e6-4a1b-8ac3-7d742e29d72a" alt="Default user profile avatar" class="rounded-circle mb-3" width="120" height="120">
+                                <h3 id="profile-name">User Name</h3>
+                                <p id="profile-email" class="text-muted">user@example.com</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4>Account Information</h4>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <strong>Member since:</strong>
+                                                <p id="profile-join-date">January 2023</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <strong>Tasks created:</strong>
+                                                <p id="profile-tasks-count">0</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4>Update Profile</h4>
+                                <form id="profile-form">
+                                    <div class="mb-3">
+                                        <label for="profile-update-name" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="profile-update-name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="profile-update-email" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" id="profile-update-email" required>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4>Change Password</h4>
+                                <form id="password-form">
+                                    <div class="mb-3">
+                                        <label for="current-password" class="form-label">Current Password</label>
+                                        <input type="password" class="form-control" id="current-password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="new-password" class="form-label">New Password</label>
+                                        <input type="password" class="form-control" id="new-password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirm-password" class="form-label">Confirm New Password</label>
+                                        <input type="password" class="form-control" id="confirm-password" required>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>TaskMaster</h5>
+                    <p>Your personal task management solution.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2023 TaskMaster. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Data storage and management
+        const USERS_KEY = 'taskmaster_users';
+        const CURRENT_USER_KEY = 'taskmaster_current_user';
+        const TASKS_KEY = 'taskmaster_tasks';
+        
+        // Initialize data if not exists
+        function initializeStorage() {
+            if (!localStorage.getItem(USERS_KEY)) {
+                localStorage.setItem(USERS_KEY, JSON.stringify([]));
+            }
+            if (!localStorage.getItem(TASKS_KEY)) {
+                localStorage.setItem(TASKS_KEY, JSON.stringify([]));
+            }
+        }
+        
+        // Get users from localStorage
+        function getUsers() {
+            return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+        }
+        
+        // Save users to localStorage
+        function saveUsers(users) {
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        }
+        
+        // Get current user from localStorage
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem(CURRENT_USER_KEY));
+        }
+        
+        // Set current user in localStorage
+        function setCurrentUser(user) {
+            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        }
+        
+        // Get tasks from localStorage
+        function getTasks() {
+            const tasks = JSON.parse(localStorage.getItem(TASKS_KEY)) || [];
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                return tasks.filter(task => task.userId === currentUser.id);
+            }
+            return [];
+        }
+        
+        // Save tasks to localStorage
+        function saveTasks(tasks) {
+            localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+        }
+        
+        // Generate unique ID
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+        
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            
+            // Show requested page
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // If showing authenticated pages, check if user is logged in
+            if (pageId !== 'login-page' && pageId !== 'signup-page') {
+                const currentUser = getCurrentUser();
+                if (!currentUser) {
+                    showPage('login-page');
+                    return;
+                }
+                
+                // Update page content based on which page is shown
+                if (pageId === 'dashboard-page') {
+                    updateDashboard();
+                } else if (pageId === 'tasks-page') {
+                    loadTasks();
+                } else if (pageId === 'profile-page') {
+                    loadProfile();
+                }
+            }
+        }
+        
+        // Update dashboard with stats and recent tasks
+        function updateDashboard() {
+            const tasks = getTasks();
+            const totalTasks = tasks.length;
+            const completedTasks = tasks.filter(task => task.completed).length;
+            const pendingTasks = totalTasks - completedTasks;
+            const highPriorityTasks = tasks.filter(task => task.priority === 'high').length;
+            
+            document.getElementById('total-tasks').textContent = totalTasks;
+            document.getElementById('completed-tasks').textContent = completedTasks;
+            document.getElementById('pending-tasks').textContent = pendingTasks;
+            document.getElementById('high-priority-tasks').textContent = highPriorityTasks;
+            
+            // Show recent tasks (last 5)
+            const recentTasks = tasks.slice(-5).reverse();
+            const recentTasksList = document.getElementById('recent-tasks-list');
+            recentTasksList.innerHTML = '';
+            
+            if (recentTasks.length === 0) {
+                recentTasksList.innerHTML = '<p class="text-muted">No tasks yet. Create your first task!</p>';
+            } else {
+                recentTasks.forEach(task => {
+                    const taskElement = document.createElement('div');
+                    taskElement.className = `card mb-2 task-card ${task.priority}-priority ${task.completed ? 'completed' : ''}`;
+                    taskElement.innerHTML = `
+                        <div class="card-body py-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">${task.title}</h6>
+                                <div>
+                                    <span class="badge bg-${task.priority === 'high' ? 'danger' : task.priority === 'medium' ? 'warning' : 'success'}">${task.priority}</span>
+                                    ${task.completed ? '<span class="badge bg-success">Completed</span>' : ''}
+                                </div>
+                            </div>
+                            ${task.dueDate ? `<small class="text-muted">Due: ${formatDate(task.dueDate)}</small>` : ''}
+                        </div>
+                    `;
+                    recentTasksList.appendChild(taskElement);
+                });
+            }
+        }
+        
+        // Load tasks with filtering
+        function loadTasks() {
+            const tasks = getTasks();
+            const tasksList = document.getElementById('tasks-list');
+            tasksList.innerHTML = '';
+            
+            // Get filter values
+            const searchTerm = document.getElementById('task-search').value.toLowerCase();
+            const priorityFilter = document.getElementById('priority-filter').value;
+            const statusFilter = document.getElementById('status-filter').value;
+            
+            // Filter tasks
+            const filteredTasks = tasks.filter(task => {
+                const matchesSearch = task.title.toLowerCase().includes(searchTerm) || 
+                                    (task.description && task.description.toLowerCase().includes(searchTerm));
+                const matchesPriority = !priorityFilter || task.priority === priorityFilter;
+                const matchesStatus = !statusFilter || 
+                                    (statusFilter === 'completed' && task.completed) ||
+                                    (statusFilter === 'pending' && !task.completed);
+                
+                return matchesSearch && matchesPriority && matchesStatus;
+            });
+            
+            if (filteredTasks.length === 0) {
+                tasksList.innerHTML = `
+                    <div class="text-center py-5">
+                        <img src="https://placeholder-image-service.onrender.com/image/200x150?prompt=Empty%20task%20list%20illustration&id=c6ac1256-e0e6-4a1b-8ac3-7d742e29d72a" alt="Empty task list illustration with magnifying glass" class="img-fluid mb-3" style="max-width: 200px;">
+                        <h4>No tasks found</h4>
+                        <p class="text-muted">Try changing your filters or create a new task.</p>
+                        <button class="btn btn-primary" onclick="showPage('create-task-page')">Create New Task</button>
+                    </div>
+                `;
+            } else {
+                filteredTasks.forEach(task => {
+                    const taskElement = document.createElement('div');
+                    taskElement.className = `card mb-3 task-card ${task.priority}-priority ${task.completed ? 'completed' : ''}`;
+                    taskElement.innerHTML = `
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <h5>${task.title}</h5>
+                                    ${task.description ? `<p class="mb-2">${task.description}</p>` : ''}
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-${task.priority === 'high' ? 'danger' : task.priority === 'medium' ? 'warning' : 'success'}">${task.priority}</span>
+                                        ${task.dueDate ? `<span class="badge bg-info">Due: ${formatDate(task.dueDate)}</span>` : ''}
+                                        ${task.completed ? 
+                                            '<span class="badge bg-success">Completed</span>' : 
+                                            '<span class="badge bg-secondary">Pending</span>'}
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="toggleTaskCompletion('${task.id}')">
+                                        ${task.completed ? 'Undo' : 'Complete'}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="editTask('${task.id}')">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    tasksList.appendChild(taskElement);
+                });
+            }
+        }
+        
+        // Format date for display
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+        
+        // Toggle task completion status
+        function toggleTaskCompletion(taskId) {
+            const tasks = JSON.parse(localStorage.getItem(TASKS_KEY)) || [];
+            const taskIndex = tasks.findIndex(task => task.id === taskId);
+            
+            if (taskIndex !== -1) {
+                tasks[taskIndex].completed = !tasks[taskIndex].completed;
+                localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+                loadTasks();
+            }
+        }
+        
+        // Edit task - load into form
+        function editTask(taskId) {
+            const tasks = JSON.parse(localStorage.getItem(TASKS_KEY)) || [];
+            const task = tasks.find(task => task.id === taskId);
+            
+            if (task) {
+                document.getElementById('edit-task-id').value = task.id;
+                document.getElementById('edit-task-title').value = task.title;
+                document.getElementById('edit-task-description').value = task.description || '';
+                document.getElementById('edit-task-due-date').value = task.dueDate || '';
+                document.getElementById('edit-task-priority').value = task.priority;
+                document.getElementById('edit-task-completed').checked = task.completed;
+                
+                showPage('edit-task-page');
+            }
+        }
+        
+        // Delete task
+        function deleteTask() {
+            const taskId = document.getElementById('edit-task-id').value;
+            const tasks = JSON.parse(localStorage.getItem(TASKS_KEY)) || [];
+            const filteredTasks = tasks.filter(task => task.id !== taskId);
+            
+            localStorage.setItem(TASKS_KEY, JSON.stringify(filteredTasks));
+            showPage('tasks-page');
+        }
+        
+        // Load profile data
+        function loadProfile() {
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                document.getElementById('profile-name').textContent = currentUser.name;
+                document.getElementById('profile-email').textContent = currentUser.email;
+                document.getElementById('profile-update-name').value = currentUser.name;
+                document.getElementById('profile-update-email').value = currentUser.email;
+                
+                // Calculate join date (rough estimate based on user ID)
+                const joinDate = new Date(parseInt(currentUser.id.substr(0, 8), 36));
+                document.getElementById('profile-join-date').textContent = joinDate.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long' 
+                });
+                
+                // Count user's tasks
+                const tasks = getTasks();
+                document.getElementById('profile-tasks-count').textContent = tasks.length;
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem(CURRENT_USER_KEY);
+            showPage('login-page');
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeStorage();
+            
+            // Check if user is logged in
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                showPage('dashboard-page');
+            } else {
+                showPage('login-page');
+            }
+            
+            // Login form submission
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                const users = getUsers();
+                const user = users.find(user => user.email === email && user.password === password);
+                
+                if (user) {
+                    setCurrentUser(user);
+                    showPage('dashboard-page');
+                } else {
+                    alert('Invalid email or password');
+                }
+            });
+            
+            // Signup form submission
+            document.getElementById('signup-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('signup-name').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return;
+                }
+                
+                const users = getUsers();
+                
+                // Check if email already exists
+                if (users.some(user => user.email === email)) {
+                    alert('Email already registered');
+                    return;
+                }
+                
+                const newUser = {
+                    id: generateId(),
+                    name: name,
+                    email: email,
+                    password: password
+                };
+                
+                users.push(newUser);
+                saveUsers(users);
+                setCurrentUser(newUser);
+                
+                showPage('dashboard-page');
+            });
+            
+            // Task form submission
+            document.getElementById('task-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const title = document.getElementById('task-title').value;
+                const description = document.getElementById('task-description').value;
+                const dueDate = document.getElementById('task-due-date').value;
+                const priority = document.getElementById('task-priority').value;
+                const currentUser = getCurrentUser();
+                
+                const newTask = {
+                    id: generateId(),
+                    userId: currentUser.id,
+                    title: title,
+                    description: description,
+                    dueDate: dueDate,
+                    priority: priority,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+                
+                const tasks = JSON.parse(localStorage.getItem(TASKS_KEY)) || [];
+                tasks.push(newTask);
+                saveTasks(tasks);
+                
+                // Reset form
+                document.getElementById('task-form').reset();
+                
+                showPage('tasks-page');
+            });
+            
+            // Edit task form submission
+            document.getElementById('edit-task-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const taskId = document.getElementById('edit-task-id').value;
+                const title = document.getElementById('edit-task-title').value;
+                const description = document.getElementById('edit-task-description').value;
+                const dueDate = document.getElementById('edit-task-due-date').value;
+                const priority = document.getElementById('edit-task-priority').value;
+                const completed = document.getElementById('edit-task-completed').checked;
+                
+                const tasks = JSON.parse(localStorage.getItem(TASKS_KEY)) || [];
+                const taskIndex = tasks.findIndex(task => task.id === taskId);
+                
+                if (taskIndex !== -1) {
+                    tasks[taskIndex].title = title;
+                    tasks[taskIndex].description = description;
+                    tasks[taskIndex].dueDate = dueDate;
+                    tasks[taskIndex].priority = priority;
+                    tasks[taskIndex].completed = completed;
+                    
+                    saveTasks(tasks);
+                    showPage('tasks-page');
+                }
+            });
+            
+            // Profile update form submission
+            document.getElementById('profile-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('profile-update-name').value;
+                const email = document.getElementById('profile-update-email').value;
+                const currentUser = getCurrentUser();
+                
+                const users = getUsers();
+                const userIndex = users.findIndex(user => user.id === currentUser.id);
+                
+                if (userIndex !== -1) {
+                    users[userIndex].name = name;
+                    users[userIndex].email = email;
+                    saveUsers(users);
+                    
+                    // Update current user
+                    currentUser.name = name;
+                    currentUser.email = email;
+                    setCurrentUser(currentUser);
+                    
+                    loadProfile();
+                    alert('Profile updated successfully');
+                }
+            });
+            
+            // Password change form submission
+            document.getElementById('password-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                const currentUser = getCurrentUser();
+                
+                if (newPassword !== confirmPassword) {
+                    alert('New passwords do not match');
+                    return;
+                }
+                
+                if (currentUser.password !== currentPassword) {
+                    alert('Current password is incorrect');
+                    return;
+                }
+                
+                const users = getUsers();
+                const userIndex = users.findIndex(user => user.id === currentUser.id);
+                
+                if (userIndex !== -1) {
+                    users[userIndex].password = newPassword;
+                    saveUsers(users);
+                    
+                    // Update current user
+                    currentUser.password = newPassword;
+                    setCurrentUser(currentUser);
+                    
+                    document.getElementById('password-form').reset();
+                    alert('Password changed successfully');
+                }
+            });
+            
+            // Add event listeners for task filtering
+            document.getElementById('task-search').addEventListener('input', loadTasks);
+            document.getElementById('priority-filter').addEventListener('change', loadTasks);
+            document.getElementById('status-filter').addEventListener('change', loadTasks);
+            document.getElementById('search-button').addEventListener('click', loadTasks);
+        });
+    </script>
+</body>
+</html>
