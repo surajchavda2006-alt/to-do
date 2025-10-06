@@ -12,17 +12,17 @@ function toggleTask(taskElement) {
 }
 
 // Navigation menu functionality
-document.querySelectorAll(".nav-item").forEach((item) => {
-    item.addEventListener("click", function () {
-        // Close mobile menu when nav item is clicked
-        document.getElementById('menu-toggle').checked = false;
+// document.querySelectorAll(".nav-item").forEach((item) => {
+//     item.addEventListener("click", function () {
+//         // Close mobile menu when nav item is clicked
+//         document.getElementById('menu-toggle').checked = false;
 
-        document
-            .querySelectorAll(".nav-item")
-            .forEach((nav) => nav.classList.remove("active"));
-        this.classList.add("active");
-    });
-});
+//         document
+//             .querySelectorAll(".nav-item")
+//             .forEach((nav) => nav.classList.remove("active"));
+//         this.classList.add("active");
+//     });
+// });
 
 // Close mobile menu when overlay is clicked
 document.querySelector('.mobile-overlay').addEventListener('click', function () {

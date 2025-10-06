@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calender</title>
+    <link rel="stylesheet" href="bootstrap.css" />
+    <link rel="stylesheet" href="new.css" />
+    <link rel="stylesheet" href="calender.css" />
+</head>
+
+<body>
+    <input type="checkbox" id="menu-toggle" />
+
+    <nav class="nav navbar">
+        <div class="header">
+            <label for="menu-toggle" class="hamburger">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </label>
+            <div class="logo"><span>Dash</span><span>board</span></div>
+
+            <div class="header-actions">
+                <div class="date-info">
+                    <div class="date-day">Tuesday</div>
+                    <div class="date-full">20/06/2023</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-overlay"></div>
+
+    <div class="main">
+        <div class="sidebar">
+            <label for="menu-toggle" class="hamburger">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </label>
+            <div class="user-profile">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                    alt="Profile" class="avatar" />
+                <div class="user-name"><span class="displayUname"></span></div>
+                <!-- <div class="user-email">sundargurung360@gmail.com</div> -->
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-item">
+                    <a href="new.html" class="nav-item-a">
+                        <span class="nav-icon"><span class="nav-icon"><img width="22" height="22"
+                                    src="https://img.icons8.com/ios/22/control-panel--v2.png"
+                                    alt="control-panel--v2" /></span></span>
+                        Dashboard
+                    </a>
+                </div>
+                <div class="nav-item active">
+                    <a href="#" class="nav-item-a">
+                        <span class="nav-icon"><img width="22" height="22"
+                                src="https://img.icons8.com/external-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto/22/external-calender-time-and-date-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto.png"
+                                alt="external-calender-time-and-date-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto" /></span>
+                        Calender
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">❗</span>
+                    Vital Task
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    My Task
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">📁</span>
+                    Task Categories
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    Settings
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">❓</span>
+                    Help
+                </div>
+            </nav>
+
+            <div id="logout" class="nav-item" style="margin-top: auto" onclick="logout()">
+                <a href="login.html">
+                    <span class="nav-icon">🚪</span>
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div id="calendar" class="page-container">
+                <div class="container">
+                    <div class="todo-container">
+                        <h2 class="text-center mb-4"><i class="fas fa-calendar-alt text-primary"></i> Task Calendar</h2>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <button class="btn btn-outline-primary" onclick="changeMonth(-1)">
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button class="btn btn-outline-primary" onclick="changeMonth(1)">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <h3 id="currentMonth" class="text-center mb-4"></h3>
+
+                        <div class="calendar-grid" id="calendarGrid">
+                            <!-- Calendar will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="calender.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
+</body>
+
+</html>
