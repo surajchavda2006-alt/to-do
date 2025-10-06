@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Dashboard</title>
+  <link rel="stylesheet" href="new.css" />
+
+</head>
+
+<body>
+  <input type="checkbox" id="menu-toggle" />
+
+  <nav class="nav navbar">
+    <div class="header">
+      <label for="menu-toggle" class="hamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </label>
+      <div class="logo"><span>Dash</span><span>board</span></div>
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="Search your task here..." />
+      </div>
+      <div class="header-actions">
+        <button class="invite-btn">🔗</button>
+        <button class="invite-btn">📅</button>
+        <div class="date-info">
+          <div class="date-day">Tuesday</div>
+          <div class="date-full">20/06/2023</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay"></div>
+
+  <div class="main">
+    <div class="sidebar">
+      <div class="user-profile">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+          alt="Profile" class="avatar" />
+        <div class="user-name"><span class="displayUname"></span></div>
+        <!-- <div class="user-email">sundargurung360@gmail.com</div> -->
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-item active">
+          <span class="nav-icon">📊</span>
+          Dashboard
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">❗</span>
+          Vital Task
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📋</span>
+          My Task
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">📁</span>
+          Task Categories
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          Settings
+        </div>
+        <div class="nav-item">
+          <span class="nav-icon">❓</span>
+          Help
+        </div>
+      </nav>
+
+      <div id="logout" class="nav-item" style="margin-top: auto" onclick="logout()">
+        <a href="login.html">
+          <span class="nav-icon">🚪</span>
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="welcome">
+        <span class="welcome-text">Welcome back, <span class="displayUname"></span> <span
+            class="welcome-emoji">👋</span></span>
+
+        <div class="team-section">
+          <div class="team-avatars">
+            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face"
+              alt="Team member" class="team-avatar" />
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face"
+              alt="Team member" class="team-avatar" />
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+              alt="Team member" class="team-avatar" />
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face"
+              alt="Team member" class="team-avatar" />
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&h=50&fit=crop&crop=face"
+              alt="Team member" class="team-avatar" />
+          </div>
+          <button class="invite-btn" onclick="openModal()">👥 Invite</button>
+
+          <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+            <div class="modal" onclick="event.stopPropagation()">
+              <div class="modal-header">
+                <h2 class="modal-title">Send an invite to a new member</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+              </div>
+
+              <div class="modal-body">
+                <form onsubmit="sendInvite(event)">
+                  <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <div class="input-group">
+                      <input type="email" class="form-input" placeholder="neerajgurung99@gmail.com" id="emailInput"
+                        required>
+                      <button type="submit" class="send-btn">Send Invite</button>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                  Invitation sent successfully! 🎉
+                </div>
+
+                <div class="members-section">
+                  <h3 class="members-title">Members</h3>
+
+                  <div class="member-item">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
+                      alt="Upashna Gurung" class="member-avatar">
+                    <div class="member-info">
+                      <div class="member-name">Upashna Gurung</div>
+                      <div class="member-email">upaseygrg332@gmail.com</div>
+                    </div>
+                    <select class="member-role">
+                      <option>Can edit</option>
+                      <option>Can view</option>
+                      <option>Admin</option>
+                    </select>
+                  </div>
+
+                  <div class="member-item">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                      alt="Jeremy Lee" class="member-avatar">
+                    <div class="member-info">
+                      <div class="member-name">Jeremy Lee</div>
+                      <div class="member-email">jerryles1986@gmail.com</div>
+                    </div>
+                    <select class="member-role">
+                      <option>Can edit</option>
+                      <option>Can view</option>
+                      <option>Admin</option>
+                    </select>
+                  </div>
+
+                  <div class="member-item">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                      alt="Thomas Park" class="member-avatar">
+                    <div class="member-info">
+                      <div class="member-name">Thomas Park</div>
+                      <div class="member-email">parktho23@gmail.com</div>
+                    </div>
+                    <select class="member-role owner">
+                      <option>Owner</option>
+                    </select>
+                  </div>
+
+                  <div class="member-item">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
+                      alt="Rachel Takahasi" class="member-avatar">
+                    <div class="member-info">
+                      <div class="member-name">Rachel Takahasi</div>
+                      <div class="member-email">takahasirao32@gmail.com</div>
+                    </div>
+                    <select class="member-role">
+                      <option>Can edit</option>
+                      <option>Can view</option>
+                      <option>Admin</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="project-link-section">
+                  <div class="form-group">
+                    <label class="form-label">Project Link</label>
+                    <div class="link-group">
+                      <input type="url" class="form-input" value="https://sharelinkhereandhhere.com/3456xy29"
+                        id="projectLink" readonly>
+                      <button class="copy-btn" onclick="copyLink()">Copy Link</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="left-panel">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📋 To-Do</div>
+              <div class="add-task-btn">+ Add task</div>
+            </div>
+            <div class="task-date" style="margin-bottom: 20px; color: #666; font-size: 14px">
+              20 June • Today
+            </div>
+
+            <div class="task-item" onclick="toggleTask(this)">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <div class="task-title">Attend Nischal's Birthday Party</div>
+                <div class="task-description">
+                  Buy gifts on the way and pick up cake from the bakery. (6 PM
+                  | Fresh Elements).....
+                </div>
+                <div class="task-meta">
+                  <span class="priority moderate">Priority: Moderate</span>
+                  <span class="status not-started">Status: Not Started</span>
+                  <span>Created on: 20/06/2023</span>
+                </div>
+              </div>
+              <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=100&h=100&fit=crop"
+                alt="Birthday party" class="task-image" />
+            </div>
+
+            <div class="task-item" onclick="toggleTask(this)">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <div class="task-title">
+                  Landing Page Design for TravelDays
+                </div>
+                <div class="task-description">
+                  Get the work done by EOD and discuss with client before
+                  leaving. (4 PM | Meeting Room)
+                </div>
+                <div class="task-meta">
+                  <span class="priority moderate">Priority: Moderate</span>
+                  <span class="status in-progress">Status: In Progress</span>
+                  <span>Created on: 20/06/2023</span>
+                </div>
+              </div>
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&fit=crop"
+                alt="Design work" class="task-image" />
+            </div>
+
+            <div class="task-item" onclick="toggleTask(this)">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <div class="task-title">Presentation on Final Product</div>
+                <div class="task-description">
+                  Make sure everything is functioning and all the necessities
+                  are properly met. Prepare the team and get the documents
+                  ready for...
+                </div>
+                <div class="task-meta">
+                  <span class="priority moderate">Priority: Moderate</span>
+                  <span class="status in-progress">Status: In Progress</span>
+                  <span>Created on: 19/06/2023</span>
+                </div>
+              </div>
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop"
+                alt="Presentation" class="task-image" />
+            </div>
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📊 Task Status</div>
+            </div>
+            <div class="progress-container">
+              <div class="progress-circle">
+                <div class="circle completed">84%</div>
+                <div class="progress-label">
+                  <span class="progress-dot completed"></span>
+                  Completed
+                </div>
+              </div>
+              <div class="progress-circle">
+                <div class="circle in-progress">46%</div>
+                <div class="progress-label">
+                  <span class="progress-dot in-progress"></span>
+                  In Progress
+                </div>
+              </div>
+              <div class="progress-circle">
+                <div class="circle not-started">13%</div>
+                <div class="progress-label">
+                  <span class="progress-dot not-started"></span>
+                  Not Started
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">✅ Completed Task</div>
+            </div>
+
+            <div class="completed-task-item">
+              <div class="task-checkbox completed"></div>
+              <div class="completed-task-content">
+                <div class="completed-task-title">Walk the dog</div>
+                <div class="completed-task-description">
+                  Take the dog to the park and bring treats as well.
+                </div>
+                <div class="completed-task-meta">
+                  <span class="status completed">Status: Completed</span><br />
+                  Completed 2 days ago.
+                </div>
+              </div>
+              <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=100&h=100&fit=crop"
+                alt="Dog walking" class="completed-task-image" />
+            </div>
+
+            <div class="completed-task-item">
+              <div class="task-checkbox completed"></div>
+              <div class="completed-task-content">
+                <div class="completed-task-title">Conduct meeting</div>
+                <div class="completed-task-description">
+                  Meet with the client and finalize requirements.
+                </div>
+                <div class="completed-task-meta">
+                  <span class="status completed">Status: Completed</span><br />
+                  Completed 2 days ago.
+                </div>
+              </div>
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop" alt="Meeting"
+                class="completed-task-image" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+
+</html>
